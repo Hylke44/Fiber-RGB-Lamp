@@ -56,33 +56,241 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  uint8_t i;
+  static uint8_t animation = 0;
+  static uint8_t delay_counter = 0;
+  static uint8_t animation_running_counter = 0;
+  uint8_t led_number, color;
+  
   
   if (new_frame) {
     new_frame = 0;
-    counter++;
-    if (counter == 10) {
-      counter = 0;
 
-      //Circle some colors
-      for (i = 0; i < 4; i++) {
-        if (led[i].r && !led[i].b) {
-          led[i].r -= 1;
-          led[i].g += 1;
+    switch (animation) {
+      case 0:
+        delay_counter++;
+        if (delay_counter == 10) {
+          delay_counter = 0;
+          //Calculate animation
+          if (animation_running_counter == 0) {
+            //Init animation
+            led[0].r = 15;
+            led[0].g = 0;
+            led[0].b = 0;
+            led[1].r = 6;
+            led[1].g = 9;
+            led[1].b = 9;
+            led[2].r = 0;
+            led[2].g = 9;
+            led[2].b = 6;
+            led[3].r = 2;
+            led[3].g = 0;
+            led[3].b = 13;
+          }
+          //Circle some colors
+          for (led_number = 0; led_number < 4; led_number++) {
+            if (led[led_number].r && !led[led_number].b) {
+              led[led_number].r -= 1;
+              led[led_number].g += 1;
+            }
+            if (led[led_number].g && !led[led_number].r) {
+              led[led_number].g -= 1;
+              led[led_number].b += 1;
+            }
+            if (led[led_number].b && !led[led_number].g) {
+              led[led_number].b -= 1;
+              led[led_number].r += 1;
+            }
+          }
+          animation_running_counter++;
+          if (animation_running_counter == 50) {
+            //Go to the next animation
+            animation_running_counter = 0;
+            animation++;
+          }
         }
-        if (led[i].g && !led[i].r) {
-          led[i].g -= 1;
-          led[i].b += 1;
+        break;
+
+      case 4:
+        delay_counter++;
+        if (delay_counter == 20) {
+          delay_counter = 0;
+          //Calculate animation
+          if (animation_running_counter == 0) {
+            //Init animation
+            led[0].r = 0;
+            led[0].g = 0;
+            led[0].b = 0;
+            led[1].r = 0;
+            led[1].g = 0;
+            led[1].b = 0;
+            led[2].r = 0;
+            led[2].g = 0;
+            led[2].b = 0;
+            led[3].r = 0;
+            led[3].g = 0;
+            led[3].b = 0;
+          }
+          //Flash red
+          if (led[0].r) {
+            for (led_number = 0; led_number < 4; led_number++){
+              led[led_number].r = 0;
+            }
+          } else {
+            for (led_number = 0; led_number < 4; led_number++){
+              led[led_number].r = 15;
+            }
+          }
+          animation_running_counter++;
+          if (animation_running_counter == 10) {
+            //Go to the next animation
+            animation_running_counter = 0;
+            animation++;
+          }
         }
-        if (led[i].b && !led[i].g) {
-          led[i].b -= 1;
-          led[i].r += 1;
+        break;
+
+      case 2:
+        delay_counter++;
+        if (delay_counter == 20) {
+          delay_counter = 0;
+          //Calculate animation
+          if (animation_running_counter == 0) {
+            //Init animation
+            led[0].r = 0;
+            led[0].g = 0;
+            led[0].b = 0;
+            led[1].r = 0;
+            led[1].g = 0;
+            led[1].b = 0;
+            led[2].r = 0;
+            led[2].g = 0;
+            led[2].b = 0;
+            led[3].r = 0;
+            led[3].g = 0;
+            led[3].b = 0;
+          }
+          //Flash Green
+          if (led[0].g) {
+            for (led_number = 0; led_number < 4; led_number++){
+              led[led_number].g = 0;
+            }
+          } else {
+            for (led_number = 0; led_number < 4; led_number++){
+              led[led_number].g = 15;
+            }
+          }
+          animation_running_counter++;
+          if (animation_running_counter == 10) {
+            //Go to the next animation
+            animation_running_counter = 0;
+            animation++;
+          }
         }
-      }
-      
+        break;
+
+      case 3:
+        delay_counter++;
+        if (delay_counter == 20) {
+          delay_counter = 0;
+          //Calculate animation
+          if (animation_running_counter == 0) {
+            //Init animation
+            led[0].r = 0;
+            led[0].g = 0;
+            led[0].b = 0;
+            led[1].r = 0;
+            led[1].g = 0;
+            led[1].b = 0;
+            led[2].r = 0;
+            led[2].g = 0;
+            led[2].b = 0;
+            led[3].r = 0;
+            led[3].g = 0;
+            led[3].b = 0;
+          }
+          //Flash Blue
+          if (led[0].b) {
+            for (led_number = 0; led_number < 4; led_number++){
+              led[led_number].b = 0;
+            }
+          } else {
+            for (led_number = 0; led_number < 4; led_number++){
+              led[led_number].b = 15;
+            }
+          }
+          animation_running_counter++;
+          if (animation_running_counter == 10) {
+            //Go to the next animation
+            animation_running_counter = 0;
+            animation++;
+          }
+        }
+        break;
+
+      case 1:
+        delay_counter++;
+        if (delay_counter == 10) {
+          delay_counter = 0;
+          //Calculate animation
+          if (animation_running_counter == 0) {
+            //Init animation
+            led[0].r = 0;
+            led[0].g = 0;
+            led[0].b = 0;
+            led[1].r = 0;
+            led[1].g = 0;
+            led[1].b = 0;
+            led[2].r = 0;
+            led[2].g = 0;
+            led[2].b = 0;
+            led[3].r = 0;
+            led[3].g = 0;
+            led[3].b = 0;
+          }
+          if (animation_running_counter % 6 == 0) {   //Red
+            led[animation_running_counter % 4].r = 15;
+            led[animation_running_counter % 4].g = 0;
+            led[animation_running_counter % 4].b = 0;
+          }
+          if (animation_running_counter % 6 == 1) {   //Yellow
+            led[animation_running_counter % 4].r = 15;
+            led[animation_running_counter % 4].g = 15;
+            led[animation_running_counter % 4].b = 0;
+          }
+          if (animation_running_counter % 6 == 2) {   //Green
+            led[animation_running_counter % 4].r = 0;
+            led[animation_running_counter % 4].g = 15;
+            led[animation_running_counter % 4].b = 0;
+          }
+          if (animation_running_counter % 6 == 3) {   //Cyan
+            led[animation_running_counter % 4].r = 0;
+            led[animation_running_counter % 4].g = 15;
+            led[animation_running_counter % 4].b = 15;
+          }
+          if (animation_running_counter % 6 == 4) {   //Blue
+            led[animation_running_counter % 4].r = 0;
+            led[animation_running_counter % 4].g = 0;
+            led[animation_running_counter % 4].b = 15;
+          }
+          if (animation_running_counter % 6 == 5) {   //Purple
+            led[animation_running_counter % 4].r = 15;
+            led[animation_running_counter % 4].g = 0;
+            led[animation_running_counter % 4].b = 15;
+          }
+          animation_running_counter++;
+          if (animation_running_counter == 40) {
+            //Go to the next animation
+            animation_running_counter = 0;
+            animation++;
+          }
+        }
+        break;
+
+      default:
+        animation = 0;
+        break;
     }
   }
-
 }
 
 ISR(TIMER0_COMPA_vect) {
