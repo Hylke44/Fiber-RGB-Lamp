@@ -20,8 +20,8 @@ typedef struct {
   uint8_t b;
 }led_t;
 
-volatile led_t led[4] = { {.r=0, .g=5, .b=10}, {.r=4, .g=9, .b=14}, 
-                          {.r=8, .g=13, .b=2}, {.r=12, .g=1, .b=6} };
+volatile led_t led[4] = { {.r=15, .g=0, .b=0}, {.r=6, .g=9, .b=0}, 
+                          {.r=0, .g=9, .b=6}, {.r=2, .g=0, .b=13} };
 
 void setup() {
   // put your setup code here, to run once:
@@ -66,12 +66,18 @@ void loop() {
 
       //Circle some colors
       for (i = 0; i < 4; i++) {
-        led[0].r++;
-        if (led[i].r == 16) led[i].r = 0;
-        led[i].g++;
-        if (led[i].g == 16) led[i].g = 0;
-        led[i].b++;
-        if (led[i].b == 16) led[i].b = 0;
+        if (led[i].r && !led[i].b) {
+          led[i].r -= 1;
+          led[i].g += 1;
+        }
+        if (led[i].g && !led[i].r) {
+          led[i].g -= 1;
+          led[i].b += 1;
+        }
+        if (led[i].b && !led[i].g) {
+          led[i].b -= 1;
+          led[i].r += 1;
+        }
       }
       
     }
